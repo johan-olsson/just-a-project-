@@ -1,0 +1,7 @@
+{
+  "CLIENT_ID": "a408203930f740141ee36d72b78f3b5c8958f5095fe33b673d521b6d5f57eac1",
+  "CLIENT_SECRET": "70bb2f546097388e8dd8feed5c5a2d9b8e4eb6cdfce5f504634204cbca396762",
+  "SESSION_SECRET": "98dabfc03f7209728fef56004fc14fff",
+  "REDIRECT_URI": "http://localhost:3001/api/auth",
+  "API_URI": "https://redbooth.com/api/3"
+}

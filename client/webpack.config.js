@@ -14,9 +14,12 @@ module.exports = {
       test: /\.less$/,
       loader: 'style!css!less'
     }, {
+      test: /\.css$/,
+      loader: 'style!css!less'
+    }, {
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: "babel",
+      loader: 'babel',
       query: {
         cacheDirectory: true,
         plugins: ['transform-class-properties', 'transform-decorators-legacy'],
@@ -25,7 +28,7 @@ module.exports = {
     }]
   },
   debug: true,
-  watch: true,
+  watch: (process.env.NODE_ENV === 'dev')? true : false,
   devtool: 'cheap-module-eval-source-map',
   plugins: [
     new HtmlWebpackPlugin({

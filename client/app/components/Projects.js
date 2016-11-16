@@ -15,7 +15,7 @@ export default class Projects extends Component {
   render() {
     return (
       <div>
-        <ul>
+        <ul className='project-list'>
           {this.props.projects.map((project, index) =>
             <li key={index}>
               <Link to={`/${project.id}`}>

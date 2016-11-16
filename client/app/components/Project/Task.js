@@ -1,47 +1,66 @@
 import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
+import classnames from 'classnames'
 import { DropTarget, DragSource } from 'react-dnd';
-
+import { moveTask } from '../../actions/tasks'
 
 @DropTarget('TASK', {
   drop(props, monitor, component) {
-    console.log(
-      props.access_token,
-      props.taskList.id,
-      monitor.getItem().task.id
-    )
+
+    var target = monitor.getItem()
+
+    props.dispatch(moveTask({
+      id: target.task.id,
+      task_list_id: props.task.task_list_id,
+      access_token: props.access_token,
+      position: props.position + ((target.position < props.position
+        && target.task.task_list_id === props.task.task_list_id)? 0 : 1)
+    }))
   }
 }, (connect, monitor) => {
   return {
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
+    isOver: monitor.isOver({
+      shallow: true
+    })
   }
 })
 @DragSource('TASK', {
   beginDrag(props, monitor, component) {
-    // Return the data describing the dragged item
-    console.log(props)
     return props
   }
 }, (connect, monitor) => {
   return {
     connectDragSource: connect.dragSource(),
-  // You can ask the monitor about the current drag state:
     isDragging: monitor.isDragging()
   }
 })
 export default class Task extends Component {
 
   render() {
+
+    var className = classnames({
+      'is-dragging': this.props.isDragging,
+      'urgent': this.props.task.urgent
+    })
+
     return this.props.connectDropTarget(
         this.props.connectDragSource(
-        <li>
-          <h4>
-            {this.props.task.name}
-          </h4>
-          <p>
-            {this.props.task.description}
-          </p>
-        </li>
+        <div>
+          <li className={className}>
+            <Link to={`/${this.props.task.project_id}/${this.props.task.id}`}>
+              <h4>
+                {this.props.task.name}
+              </h4>
+              <p>
+                {this.props.task.description}
+              </p>
+            </Link>
+          </li>
+          {(this.props.isOver)?
+            <shadow/> : null
+          }
+        </div>
       )
     )
   }

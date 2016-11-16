@@ -55,7 +55,6 @@ router.get('/:path/:argument', function (req, res) {
       'Content-Type': 'application/json'
     }
   }, function(data, response) {
-    console.log(response.statusCode)
     res.json(data)
   })
 })
@@ -68,25 +67,22 @@ router.get('/:path', function (req, res) {
       'Content-Type': 'application/json'
     }
   }, function(data, response) {
-    console.log(response.statusCode)
     res.json(data)
   })
 })
 
 router.put('/:path/:argument', function (req, res) {
 
+  var authorization = req.body.data.authorization
+  delete req.body.data.authorization
+
   client.put(`${config.API_URI}/${req.params.path}/${req.params.argument}`, {
-    data: {
-      task_list_id: req.body.data.task_list_id,
-      id: req.params.argument
-    },
+    data: req.body.data,
     headers: {
-      'Authorization': req.body.data.authorization,
+      'Authorization': authorization,
       'Content-Type': 'application/json'
     }
   }, function(data, response) {
-    console.log(response.statusCode)
-    console.log(data)
     res.json(data)
   })
 })

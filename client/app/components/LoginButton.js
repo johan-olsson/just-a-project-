@@ -8,7 +8,8 @@ export default class StoreToken extends Component {
 
   render() {
     return (
-      <div onClick={this.login}>
+      <div className='login'
+           onClick={this.login}>
         Login
       </div>
     )

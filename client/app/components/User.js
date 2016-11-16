@@ -13,8 +13,7 @@ export default class User extends Component {
 
   render() {
     return (
-      <div>
-        USER
+      <div>// Display some user information
       </div>
     )
   }

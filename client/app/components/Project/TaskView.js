@@ -4,7 +4,6 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 import keydown from 'react-keydown'
 import { push } from 'react-router-redux'
-import 'rc-checkbox/assets/index.css'
 
 @connect((store) => {
   return {

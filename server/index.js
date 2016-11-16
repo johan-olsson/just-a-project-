@@ -48,25 +48,37 @@ router.get('/authorize', function (req, res) {
 })
 
 router.get('/:path/:argument', function (req, res) {
+
+  var authorization = req.query.authorization
+  delete req.query.authorization
+
   client.get(`${config.API_URI}/${req.params.path}/${req.params.argument}`, {
     data: req.query,
     headers: {
-      'Authorization': req.headers['authorization'],
+      'Authorization': authorization,
       'Content-Type': 'application/json'
     }
   }, function(data, response) {
+    console.log(`get ${config.API_URI}/${req.params.path}/${req.params.argument}`, response.statusCode)
+    console.log(req.query)
     res.json(data)
   })
 })
 
 router.get('/:path', function (req, res) {
+
+  var authorization = req.query.authorization
+  delete req.query.authorization
+
   client.get(`${config.API_URI}/${req.params.path}`, {
     data: req.query,
     headers: {
-      'Authorization': req.headers['authorization'],
+      'Authorization': authorization,
       'Content-Type': 'application/json'
     }
   }, function(data, response) {
+    console.log(`get ${config.API_URI}/${req.params.path}`, response.statusCode)
+    console.log(req.query)
     res.json(data)
   })
 })
@@ -83,6 +95,8 @@ router.put('/:path/:argument', function (req, res) {
       'Content-Type': 'application/json'
     }
   }, function(data, response) {
+    console.log(`put ${config.API_URI}/${req.params.path}/${req.params.argument}`, response.statusCode)
+    console.log(req.body.data)
     res.json(data)
   })
 })
